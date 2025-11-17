@@ -5,6 +5,7 @@ import { Chess } from "chess.js";
 export default function App() {
   const [game, setGame] = useState(new Chess());
   const [position, setPosition] = useState("start");
+  const [level, setLevel] = useState(5); // niveau par défaut
   const stockfish = useRef(null);
 
   useEffect(() => {
@@ -49,9 +50,10 @@ export default function App() {
 
     setPosition(game.fen());
 
-    // IA joue ensuite
+
+    // IA joue ensuite avec profondeur correspondant au niveau
     stockfish.current.postMessage("position fen " + game.fen());
-    stockfish.current.postMessage("go depth 10");
+    stockfish.current.postMessage(`go depth ${level}`);
     
     return true;
   };
@@ -67,6 +69,23 @@ export default function App() {
       }}
     >
       <h1>♟️ Jeu d'échecs contre IA</h1>
+
+      <label style={{ marginBottom: "1rem", fontSize: "1.2rem" }}>
+        Niveau de l'IA :
+        <select
+          value={level}
+          onChange={(e) => setLevel(Number(e.target.value))}
+          style={{ marginLeft: "1rem", padding: "0.3rem" }}
+        >
+          <option value={1}>Très facile (depth 1)</option>
+          <option value={3}>Facile (depth 3)</option>
+          <option value={5}>Normal (depth 5)</option>
+          <option value={8}>Difficile (depth 8)</option>
+          <option value={12}>Très difficile (depth 12)</option>
+          <option value={18}>Expert (depth 18)</option>
+        </select>
+      </label>
+
       <Chessboard 
         position={position} 
         onPieceDrop={onDrop}
