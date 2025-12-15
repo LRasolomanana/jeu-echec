@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginRegister.css'; // Fichier CSS séparé pour le style
+import './LoginRegister.css';
 
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(true); // true pour connexion, false pour inscription
