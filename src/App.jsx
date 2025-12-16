@@ -94,6 +94,7 @@ export default function App() {
         <div className={`menu ${menuOpen ? "open" : ""}`}>
           <button onClick={() => navigate('/auth/login')}>Connexion</button>
           <button onClick={resetGame}>Nouvelle partie</button>
+          <button onClick={() => navigate('/rules/rules')}>Règles</button>
           <select value={level} onChange={(e) => setLevel(+e.target.value)}>
             <option value={1}>IA facile</option>
             <option value={5}>IA normale</option>
