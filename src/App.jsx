@@ -89,7 +89,7 @@ export default function App() {
   return (
     <div className="app">
       <nav className="nav">
-        <h2>♟ Chess IA</h2>
+        <h2>♟ Chess</h2>
         <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
         <div className={`menu ${menuOpen ? "open" : ""}`}>
           <button onClick={() => navigate('/auth/login')}>Connexion</button>
