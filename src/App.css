@@ -1,0 +1,99 @@
+body { margin: 0; }
+
+        .app {
+          background: #1e1e1e;
+          color: white;
+          min-height: 100vh;
+        }
+
+        .nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem;
+          background: #111;
+        }
+
+        .burger {
+          display: none;
+          background: none;
+          color: white;
+          font-size: 1.5rem;
+          border: none;
+        }
+
+        .menu {
+          display: flex;
+          align-items: center;
+        }
+
+        .menu button,
+        .menu select {
+          margin-left: 0.75rem;
+        }
+
+        .menu button {
+          background: #333;
+          color: white;
+          border: none;
+          padding: 0.4rem 0.8rem;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        .menu button:hover {
+          background: #555;
+        }
+
+        .content {
+          display: flex;
+          min-height: calc(100vh - 64px);
+          align-items: center;
+          justify-content: center;
+        }
+
+        .board {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .side {
+          width: 220px;
+          padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+          .content {
+            flex-direction: column;
+            justify-content: flex-start;
+          }
+
+          .board {
+            width: 100vw;
+          }
+
+          .side {
+            width: 100%;
+            order: 2;
+          }
+
+          .burger {
+            display: block;
+          }
+
+          .menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+          }
+
+          .menu.open {
+            display: flex;
+          }
+
+          .history {
+            max-height: 120px;
+            overflow: auto;
+          }
+        }

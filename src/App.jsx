@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
+import "./App.css";
+
 
 export default function App() {
   const [game, setGame] = useState(new Chess());
@@ -13,6 +16,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const stockfish = useRef(null);
+  const navigate = useNavigate();
 
   // Initialisation Stockfish
   useEffect(() => {
@@ -87,19 +91,16 @@ export default function App() {
       <nav className="nav">
         <h2>♟ Chess IA</h2>
         <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
-        
         <div className={`menu ${menuOpen ? "open" : ""}`}>
-          <button>Connexion</button>
-          <button>Règles</button>
+          <button onClick={() => navigate('/auth/login')}>Connexion</button>
           <button onClick={resetGame}>Nouvelle partie</button>
-          
           <select value={level} onChange={(e) => setLevel(+e.target.value)}>
             <option value={1}>IA facile</option>
             <option value={5}>IA normale</option>
             <option value={12}>IA difficile</option>
-            </select>
-            </div>
-            </nav>
+          </select>
+        </div>
+      </nav>
 
       <div className="content">
         <div className="side">
@@ -117,90 +118,6 @@ export default function App() {
           />
         </div>
       </div>
-
-      <style>{`
-        body { margin: 0; }
-
-        .app {
-          background: #1e1e1e;
-          color: white;
-          min-height: 100vh;
-        }
-
-        .nav {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1rem;
-          background: #111;
-        }
-
-        .burger {
-          display: none;
-          background: none;
-          color: white;
-          font-size: 1.5rem;
-          border: none;
-        }
-
-        .menu button,
-        .menu select {
-          margin-left: 1rem;
-        }
-
-        .content {
-          display: flex;
-          min-height: calc(100vh - 64px);
-          align-items: center;
-          justify-content: center;
-        }
-
-        .board {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .side {
-          width: 220px;
-          padding: 1rem;
-        }
-
-        @media (max-width: 768px) {
-          .content {
-            flex-direction: column;
-            justify-content: flex-start;
-          }
-
-          .board {
-            width: 100vw;
-          }
-
-          .side {
-            width: 100%;
-            order: 2;
-          }
-
-          .burger {
-            display: block;
-          }
-
-          .menu {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-          }
-
-          .menu.open {
-            display: flex;
-          }
-
-          .history {
-            max-height: 120px;
-            overflow: auto;
-          }
-        }
-      `}</style>
     </div>
   );
 }
