@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './LoginRegister.css';
 
 function LoginRegister() {
@@ -13,24 +14,45 @@ function LoginRegister() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
     if (isLogin) {
-      // Simulation de connexion
-      if (formData.email && formData.password) {
+      // connexion
+      const response = await axios.post('http://localhost:3001/api/auth/login', {
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (response.data.success) {
         alert(`Connexion réussie pour ${formData.email}`);
+        // ici tu peux rediriger ou stocker un token
       } else {
-        alert('Veuillez remplir email et mot de passe.');
+        alert(response.data.message);
       }
+
     } else {
-      // Simulation d'inscription
-      if (formData.name && formData.email && formData.password) {
+      // inscription
+      const response = await axios.post('http://localhost:3001/api/auth/register', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (response.data.success) {
         alert(`Inscription réussie pour ${formData.name}`);
       } else {
-        alert('Veuillez remplir tous les champs.');
+        alert(response.data.message);
       }
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('Erreur serveur, veuillez réessayer.');
+  }
+};
+
+
 
   return (
     <div className="container">
